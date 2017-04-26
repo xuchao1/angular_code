@@ -82,8 +82,7 @@ export class PagerPageComponent implements OnInit {
   }
   //分页器初始化
   initPage() {
-    let t = this.pagerData.totalPages;
-    let p = this.pagerData.number;
+    let {totalPages:t,pageNo:p} = this.pagerData;//解构
 
     this.pagerList.length = 0;//快速清空数组
     if (t <= 7) {

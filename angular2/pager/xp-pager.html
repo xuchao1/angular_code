@@ -10,12 +10,12 @@
   </div>
   <div class="pagination">
     <ul>
-      <li><a (click)="prevNextPage('prev')">上</a></li>
+      <li><a [ngClass]="{'disable':pagerData.pageNo == 1}" (click)="prevNextPage('prev')">上</a></li>
       <li (click)="changePage(item.page)" [ngClass]="{'active': item.page==pagerData.number}" *ngFor="let item of pagerList; let i = index">
         <a *ngIf="item.page != -1">{{item.page}}</a>
         <span *ngIf="item.page == -1">&nbsp;&nbsp;...&nbsp;&nbsp;</span>
       </li>
-      <li><a (click)="prevNextPage('next')">下</a></li>
+      <li><a [ngClass]="{'disable':pagerData.pageNo == pagerData.totalPages}" (click)="prevNextPage('next')">下</a></li>
     </ul>
   </div>
   <div class="page-go">
