@@ -1,0 +1,34 @@
+/* You can add global styles to this file, and also import other style files */
+
+ul.liststylenone{
+  list-style: none;
+  padding-left: 0;
+}
+.demo-page{
+  width:80%;
+
+  .sub-header{
+    font-size:1.5em;
+    padding: 0.3em;
+  }
+
+  .demo-list{
+
+    .demo-item{
+      .property,.method,.sample{
+        padding-bottom: 0.5em;
+        >span{
+          color:#57a6da;
+        }
+        >span:after{
+          content:":"
+        }
+
+        >ul li:hover{
+          background-color:#98a0fa;
+          cursor:default;
+        }
+      }
+    }
+  }
+}

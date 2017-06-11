@@ -1,0 +1,111 @@
+<div class="demo-page">
+  <div class="sub-header">
+    <span>icheck demo page</span>
+  </div>
+  <div class="demo-list">
+    <div class="demo-item">
+      <div class="property">
+        <span>属性/property</span>
+        <ul>
+          <li><span class="span-name">ngModal</span><span class="span-detail">绑定的值/binding Object</span></li>
+          <li><span class="span-name">disabled</span><span class="span-detail">是否禁用/disabled or enabled</span></li>
+          <li><span class="span-name">indeterminate</span><span class="span-detail">半选（复选可用）/ </span></li>
+          <li><span class="span-name">allcheck</span><span class="span-detail">全选复选框 id标记 / tag to mark full-control component</span></li>
+          <li><span class="span-name">allcheckChild</span><span class="span-detail">全选的子集复选框 id标记 / tag to mark children components(to be controlled)</span></li>
+        </ul>
+      </div>
+      <div class="method">
+        <span>方法/method</span>
+        <ul>
+          <li><span class="span-name">onChange</span><span class="span-detail">值改变触发事件 / trigger on value changed</span></li>
+          <li><span class="span-name">onClick</span><span class="span-detail">点击触发事件 / trigger on clicked</span></li>
+          <li><span class="span-name">onIndeterminate</span><span class="span-detail">半选状态改变时触发，入参为当前半选状态 / trigger on the change of indeterminate state</span></li>
+          <li><span class="span-name">onCount</span><span class="span-detail">子对象数量改变触发，入参为当前子对象数量 / trigger on the change number of children components </span></li>
+        </ul>
+      </div>
+      <div class="sample">
+        <span>演示/sample</span>
+
+        <div class="row">
+          <div class="col-xs-6 col-md-6 inner-item">
+            <span class="inner-title">Radio</span>
+            <ul>
+              <li>
+                <label>
+                <input type="radio" name="radioSample1" [(ngModel)]="radioSample1" id="radio1" #radio1 (onChange)="changeInput(gender,radio1)" (onClick)="clickInput(gender,radio1)" value="1" icheck>
+                  radio1
+                </label>
+              </li>
+              <li>
+                <label>
+                <input type="radio" name="radioSample1" [(ngModel)]="radioSample1" id="radio2" #radio2 (onChange)="changeInput(gender,radio2)" (onClick)="clickInput(gender,radio2)" value="2" icheck>
+                  radio2
+                </label>
+              </li>
+              <li>
+                <label>
+                <input type="radio" name="radioSample1" [(ngModel)]="radioSample1" id="radio3" #radio3 (onChange)="changeInput(gender,radio3)" (onClick)="clickInput(gender,radio3)" value="3" icheck>
+                  radio3
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="col-xs-6 col-md-6 inner-item">
+            <span class="inner-title">CheckBox</span>
+            <div class="">
+              <label>
+              <input type="checkbox" [disabled]="checkboxSample1Disable"
+               [indeterminate]="checkboxSample1Indeterminate"
+                name="checkboxSample1" [(ngModel)]="checkboxSample1"
+                 id="checkbox1" #checkbox1 (onChange)="changeInput(gender,checkbox1)"
+                  (onClick)="clickInput(gender,checkbox1)" icheck>
+              checkbox
+            </label>
+              <div class="control">
+                <label>
+                <input type="checkbox" name="checkboxSample1Disable" [(ngModel)]="checkboxSample1Disable" icheck>
+                disable
+              </label>
+                <label>
+                <input type="checkbox" name="checkboxSample1Indeterminate" [(ngModel)]="checkboxSample1Indeterminate" icheck>
+                indeterminate
+              </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-12 inner-item">
+            <span class="inner-title">CheckBox</span>
+            <div class="">
+              <label><input type="checkbox" allcheck="demoall" icheck [(ngModel)]="fullChecked"
+                (onCount)="count = $event" (onIndeterminate)="toggleFullCheckIndeterminate($event)">全选</label> 选中：{{fullChecked}}&nbsp;&nbsp;&nbsp;半选/indet：{{fullCheckedIndeterminate}}&nbsp;&nbsp;&nbsp;选中子项/count：{{count}}
+              <ul>
+                <li *ngFor="let item of fullCheck">
+                  <label><input type="checkbox" allcheckChild="demoall" [allcheck]="item.id" icheck [(ngModel)]="item.checked"
+                  (onCount)="item.count = $event" (onIndeterminate)="toggleIndeterminate(item,$event)">{{item.name}}</label> 选中：{{item.checked}}&nbsp;&nbsp;&nbsp;半选/indet：{{item.indeterminate}}&nbsp;&nbsp;&nbsp;选中子项/count：{{item.count}}&nbsp;&nbsp;&nbsp;隐藏子级
+                  <a class="btn btn-link btn-xs" [ngClass]="{'hide': !item.depts || item.depts.length<1}" (click)="item.hidesub = !item.hidesub">{{item.hidesub?"open":"hide"}}</a>
+                  <ul [ngClass]="{'hide':item.depts&&item.depts.length&&item.hidesub}">
+                    <li *ngFor="let subitem of item.depts">
+                      <label><input type="checkbox" [allcheckChild]="item.id" icheck [(ngModel)]="subitem.checked"
+                         (onCount)="item.count = $event" (onIndeterminate)="toggleIndeterminate(subitem,$event)">{{subitem.name}} </label> 选中：{{subitem.checked}}&nbsp;&nbsp;&nbsp;半选/indet：{{subitem.indeterminate}}&nbsp;&nbsp;&nbsp;
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="demo-event-log">
+          <table>
+            <tr *ngFor="let item of logList" [ngClass]="{'first':item.class == 0}" class="log-item fade-in fade-out">
+              <td class="log-event">{{ item?.event }} </td>
+              <td class="log-dom" (mouseenter)="choose(item)" (mouseout)="unchoose(item)">
+                <pre>{{item?.cap}}</pre>
+              </td>
+              <td class="value" (mouseenter)="choose(item)" (mouseout)="unchoose(item)">{{ item?.value}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
